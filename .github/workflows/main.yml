@@ -12,3 +12,22 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      # Step 2: Update index.html
+      - name: Update index.html
+        run: |
+          # Check which GitHub user pushed
+          echo "GitHub actor is: ${{ github.actor }}"
+
+          # Check if the GitHub actor is the team leader
+          if [ "${{ github.actor }}" == "shjung0725" ]; then
+            sed -i '/<\/body>/i <p>Updated by Team Leader on '"$(date)"'</p>' index.html
+
+          # Check if the GitHub actor is Member 1
+          elif [ "${{ github.actor }}" == "member1-username" ]; then
+            sed -i '/<\/body>/i <p>Updated by Member 1 on '"$(date)"'</p>' index.html
+
+          # Check if the GitHub actor is Member 2
+          elif [ "${{ github.actor }}" == "member2-username" ]; then
+            sed -i '/<\/body>/i <p>Updated by Member 2 on '"$(date)"'</p>' index.html
+          fi
