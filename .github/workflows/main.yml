@@ -31,3 +31,9 @@ jobs:
           elif [ "${{ github.actor }}" == "member2-username" ]; then
             sed -i '/<\/body>/i <p>Updated by Member 2 on '"$(date)"'</p>' index.html
           fi
+
+      # Step 3: Update README
+      - name: Update README
+        run: |
+          # Append a log entry to the README.md file
+          echo "### Updated by ${{ github.actor }} on $(date '+%Y-%m-%d %H:%M:%S') [Commit: $(git rev-parse --short HEAD)]" >> README.md
